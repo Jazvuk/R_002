@@ -1,0 +1,27 @@
+##FB Graph API with R for friend location and status analysis
+========================================================
+#From the FB https://developers.facebook.com/tools/explorer, generate a temporary Access Token and paste into RStudio
+ 
+##token <-AACEdEose0cBAC4PUsdwlFAIe7Rb8bckHwckihuWdYgwXrEKOs6o9FnBJ0jxgReSp9Gx1Ncugropvz849vNHGgajijVrfgoTc9R4KdrzOmMI4aRRicNEinwqaYoW4u8OrKnwVHdcjnIm48mZAw6mZChAGH9RLxnkYDBlWbEky3GjsGsAsisYYSfTNly9G7q8FoDDCIewZDZD'
+ 
+##Install new package "jsonlite"
+##Then load
+library(jsonlite)
+ 
+##Become familiar with the FB Graph API syntax and chose the fields for analysis. Copy the complete url from your fb developer page and assign to an object you created. In this example object "fbfieldsurl" was assigned the fb url. Make sure to use your unique fb ID. The xxxxx's below are a pleaceholder
+ 
+## Replace the "xxxxxx's" with your fb ID prior to running
+fbfieldsurl <- paste0('https://graph.facebook.com/xxxxxxxxx?fields=location,relationship_status,name,gender,id,friends.fields(location,relationship_status,name,gender,id)&access_token=',token)
+ 
+#Here, jvinfo2 gets "fbfieldsurl"
+fbinfo2<-getURL(fbfieldsurl)
+ 
+## When encountering JSON data containing nested records...jsonlite tries to stay as close as possible to the origional structure by returning a nested data frame...This is an excerpt from "http://cran.r-project.org/web/packages/jsonlite/vignettes/json-mapping.pdf"
+
+ 
+rawfb <-fromJSON(fbinfo2)
+ 
+## Not sure about class??
+ 
+names(rawfb)
+ 
